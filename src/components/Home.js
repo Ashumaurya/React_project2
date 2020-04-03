@@ -11,15 +11,34 @@ class  Home extends Component {
         .then(res =>{
            // console.log(res)
            this.setState({
-               post : res.data.slice(0,5)
+               posts : res.data.slice(0,5)
            });
         })
     }
   render(){
+      const{posts} = this.state; // {posts} used for destructuring the posts and getting data from it.
+      const postlist = posts.length ? (
+          posts.map(post=>{
+              return(
+              <div className = "post card" key = "{post.id}">
+              <div className ="card-content">
+                  <span className = "card-title">{post.title}</span>
+                  <p>{post.body}</p>
+              </div>
+              
+
+              </div>)
+              
+          })
+      ):(
+      <div className = "center" >
+      <p> There are no posts </p>
+       </div>
+       );
     return(
         <div className = "container">
             <h1 className = "center"> Home </h1>
-            <p className = "container centre">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consectetur quam quis gravida convallis. Maecenas pretium pretium faucibus. Nullam elementum fringilla elit, ut condimentum ipsum faucibus eu. Donec egestas nibh ornare lectus volutpat, in volutpat turpis malesuada. Nulla sagittis nisl vel ligula tincidunt congue. Ut vel quam egestas, rutrum tellus non, interdum magna. Duis facilisis lacus et orci pulvinar fringilla. Nunc et sapien a purus fermentum faucibus sed pellentesque diam. </p>
+            {postlist}
         </div>
     )
   }
