@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
 import { Link }from 'react-router-dom';
+import {connect} from 'react-redux'
 
 class  Home extends Component {
-    state = {
-        posts : [ ]
-    }
+    // state = {
+    //     posts : [ ]
+    // }
 
-    componentDidMount(){
-        axios.get('https://jsonplaceholder.typicode.com/posts')
-        .then(res =>{
-           // console.log(res)
-           this.setState({
-               posts : res.data.slice(0,5)
-           });
-        })
-    }
+    // componentDidMount(){
+    //     axios.get('https://jsonplaceholder.typicode.com/posts')
+    //     .then(res =>{
+    //        // console.log(res)
+    //        this.setState({
+    //            posts : res.data.slice(0,5)
+    //        });
+    //     })
+    // }
+    
+
   render(){
-      const{posts} = this.state; // {posts} used for destructuring the posts and getting data from it.
+     // const{posts} = this.state; // {posts} used for destructuring the posts and getting data from it.
+ 
+    
+     const{posts} = this.props;
       const postlist = posts.length ? (
           posts.map(post=>{
               return(
@@ -46,4 +52,11 @@ class  Home extends Component {
     )
   }
 }
-export default Home;
+const mapStatetoProps = (state)=>{
+    return{posts : state.posts}
+        
+    
+}
+
+export default  connect(mapStatetoProps ) (Home); // we are using high order component + we pasding mapStatetoProps as 
+                                                // a parameter to that that function is now connected to redux
